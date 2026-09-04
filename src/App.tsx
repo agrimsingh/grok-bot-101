@@ -5,6 +5,7 @@ import { SLIDES } from "./slides";
 const LAST = SLIDES.length - 1;
 const STAGE_W = 1440;
 const STAGE_H = 810;
+const READER_QUERY = "(max-width: 899px)";
 
 function slideFromHash(): number {
   const n = Number(window.location.hash.replace("#", ""));
@@ -14,12 +15,49 @@ function slideFromHash(): number {
   return n - 1;
 }
 
+function useReaderMode(): boolean {
+  const [reader, setReader] = useState(() => window.matchMedia(READER_QUERY).matches);
+
+  useEffect(() => {
+    const media = window.matchMedia(READER_QUERY);
+    const sync = () => setReader(media.matches);
+    sync();
+    media.addEventListener("change", sync);
+    return () => media.removeEventListener("change", sync);
+  }, []);
+
+  return reader;
+}
+
+function setHash(index: number) {
+  const next = `#${index + 1}`;
+  if (window.location.hash !== next) {
+    window.history.replaceState(null, "", next);
+  }
+}
+
+function toggleFullscreen() {
+  if (document.fullscreenElement) {
+    void document.exitFullscreen();
+  } else {
+    void document.documentElement.requestFullscreen();
+  }
+}
+
+function scrollToSlide(index: number, behavior: ScrollBehavior) {
+  document.getElementById(`slide-${index + 1}`)?.scrollIntoView({ behavior, block: "start" });
+}
+
 export function App() {
+  const reader = useReaderMode();
   const [index, setIndex] = useState(slideFromHash);
   const [notes, setNotes] = useState(false);
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
+    if (reader) {
+      return;
+    }
     const fit = () => {
       const w = window.innerWidth - 40;
       const h = window.innerHeight - 90;
@@ -28,22 +66,79 @@ export function App() {
     fit();
     window.addEventListener("resize", fit);
     return () => window.removeEventListener("resize", fit);
-  }, []);
+  }, [reader]);
 
-  const go = useCallback((next: number) => {
-    const clamped = Math.max(0, Math.min(LAST, next));
-    setIndex(clamped);
-    window.history.replaceState(null, "", `#${clamped + 1}`);
-  }, []);
+  const go = useCallback(
+    (next: number, behavior: ScrollBehavior = "smooth") => {
+      const clamped = Math.max(0, Math.min(LAST, next));
+      setIndex(clamped);
+      setHash(clamped);
+      if (reader) {
+        scrollToSlide(clamped, behavior);
+      }
+    },
+    [reader],
+  );
 
   useEffect(() => {
-    const onHash = () => setIndex(slideFromHash());
+    const onHash = () => {
+      const next = slideFromHash();
+      setIndex(next);
+      if (reader) {
+        scrollToSlide(next, "auto");
+      }
+    };
     window.addEventListener("hashchange", onHash);
     if (!window.location.hash) {
       window.history.replaceState(null, "", "#1");
+    } else if (reader) {
+      const target = slideFromHash();
+      const frame = window.requestAnimationFrame(() => {
+        scrollToSlide(target, "auto");
+      });
+      const retry = window.setTimeout(() => {
+        scrollToSlide(target, "auto");
+      }, 80);
+      return () => {
+        window.cancelAnimationFrame(frame);
+        window.clearTimeout(retry);
+        window.removeEventListener("hashchange", onHash);
+      };
     }
     return () => window.removeEventListener("hashchange", onHash);
-  }, []);
+  }, [reader]);
+
+  useEffect(() => {
+    if (!reader) {
+      return;
+    }
+    const sections = [...document.querySelectorAll<HTMLElement>(".reader-slide")];
+    if (sections.length === 0) {
+      return;
+    }
+    const syncFromScroll = () => {
+      const marker = 72;
+      let current = 0;
+      for (let i = 0; i < sections.length; i++) {
+        const rect = sections[i]?.getBoundingClientRect();
+        if (rect && rect.top <= marker && rect.bottom > marker) {
+          current = i;
+          break;
+        }
+      }
+      setIndex(current);
+      setHash(current);
+    };
+    const observer = new IntersectionObserver(syncFromScroll, {
+      root: null,
+      rootMargin: "0px",
+      threshold: [0, 0.15, 0.35, 0.55, 0.75, 1],
+    });
+    for (const section of sections) {
+      observer.observe(section);
+    }
+    return () => observer.disconnect();
+  }, [reader]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -82,20 +177,51 @@ export function App() {
       }
       if (key === "f" || key === "F") {
         event.preventDefault();
-        if (document.fullscreenElement) {
-          void document.exitFullscreen();
-        } else {
-          void document.documentElement.requestFullscreen();
-        }
+        toggleFullscreen();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [go, index]);
 
-  const Slide = SLIDES[index];
   const note = NOTES[index];
+  const notesPanel = (
+    <aside className="notes" hidden={!notes}>
+      <header>Notes</header>
+      {note ? <p>{note}</p> : <p className="empty">No notes for this slide.</p>}
+    </aside>
+  );
 
+  if (reader) {
+    return (
+      <div className={`deck reader${notes ? " notes-open" : ""}`}>
+        <header className="reader-bar">
+          <button type="button" className="reader-nav" disabled={index === 0} onClick={() => go(index - 1)}>
+            Previous
+          </button>
+          <div className="reader-meta">
+            <strong>Grok Bot 101</strong>
+            <span>
+              {index + 1} / {SLIDES.length}
+            </span>
+          </div>
+          <button type="button" className="reader-nav" disabled={index === LAST} onClick={() => go(index + 1)}>
+            Next
+          </button>
+        </header>
+        <div className="reader-stream">
+          {SLIDES.map((Slide, i) => (
+            <section key={i} id={`slide-${i + 1}`} className="reader-slide">
+              <Slide />
+            </section>
+          ))}
+        </div>
+        {notesPanel}
+      </div>
+    );
+  }
+
+  const Slide = SLIDES[index];
   if (!Slide) {
     return null;
   }
@@ -122,15 +248,29 @@ export function App() {
       </div>
       <footer className="chrome">
         <span className="keys">
-          <kbd>←</kbd>
-          <kbd>→</kbd>
-          <kbd>N</kbd>
-          <kbd>F</kbd>
+          <button type="button" className="key-chip" onClick={() => go(index - 1)}>
+            ← Prev
+          </button>
+          <button type="button" className="key-chip" onClick={() => go(index + 1)}>
+            → Next
+          </button>
+          <button type="button" className="key-chip" onClick={() => setNotes((open) => !open)}>
+            N Notes
+          </button>
+          <button type="button" className="key-chip" onClick={toggleFullscreen}>
+            F Fullscreen
+          </button>
         </span>
         <ol className="dots">
           {SLIDES.map((_, i) => (
             <li key={i}>
-              <button type="button" aria-label={`Slide ${i + 1}`} aria-current={i === index} onClick={() => go(i)} />
+              <button
+                type="button"
+                tabIndex={i === index ? 0 : -1}
+                aria-label={`Slide ${i + 1}`}
+                aria-current={i === index}
+                onClick={() => go(i)}
+              />
             </li>
           ))}
         </ol>
@@ -138,10 +278,7 @@ export function App() {
           {index + 1} / {SLIDES.length}
         </span>
       </footer>
-      <aside className="notes" hidden={!notes}>
-        <header>Notes</header>
-        {note ? <p>{note}</p> : <p className="empty">No notes for this slide.</p>}
-      </aside>
+      {notesPanel}
     </div>
   );
 }

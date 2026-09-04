@@ -114,21 +114,7 @@ export function RosterPreview() {
   );
 }
 
-/* Slide 2: four facts. */
-export function FactGrid({ facts }: { facts: Array<[string, string]> }) {
-  return (
-    <div className="fact-grid">
-      {facts.map(([title, body]) => (
-        <article key={title}>
-          <b>{title}</b>
-          <p>{body}</p>
-        </article>
-      ))}
-    </div>
-  );
-}
-
-/* Slide 3: five primitives, one row each. */
+/* Slide 5: five words, one row each. */
 export function PrimitivesRow() {
   const items: Array<[string, string, string]> = [
     ["Bot", "A teammate with a name, its own memory, its own computer and its own tools.", "Chief of Staff"],
@@ -151,7 +137,7 @@ export function PrimitivesRow() {
   );
 }
 
-/* Slide 4: the two things you leave with. */
+/* Slide 3: the two things you leave with. */
 export function TakeawayPair() {
   return (
     <div className="takeaway-pair">
@@ -181,7 +167,7 @@ export function TakeawayPair() {
   );
 }
 
-/* Slide 5: many accounts into one Bot. */
+/* Slide 14: many accounts into one Bot. */
 export function AccountFunnel() {
   const mail = ["you@company.com", "you@sideproject.co", "you@university.edu", "you@gmail.com"];
   const slack = ["Company", "Investors", "Podcast", "Community", "Alumni", "Clients", "Family"];
@@ -329,7 +315,7 @@ export function MemoryStage() {
   );
 }
 
-/* Slide 9: three names. */
+/* Appendix: three names. */
 export function CompareRow() {
   const items: Array<[string, string, string]> = [
     ["ChatGPT Projects", "A chat with files attached.", "It does not have a computer that stays on after you leave, and it does not sign into the rest of your tools as a coworker would."],
@@ -351,18 +337,18 @@ export function CompareRow() {
           Grok Bot
         </header>
         <b>A coworker on a computer xAI runs.</b>
-        <p>You do not manage files or servers. Group chats and handoffs between Bots are built in.</p>
+        <p>xAI runs the computer. You only touch files when you want the Bot to remember something. Rooms and handoffs between Bots are built in.</p>
       </article>
     </div>
   );
 }
 
-/* Slide 11: three job cards, official wording. */
+/* Slide 4: three job cards, official wording. */
 export function JobCards() {
   const jobs = [
-    { name: "Inbox Manager", ...INBOX, does: "Sorts your inbox, flags what is urgent or where someone is waiting on you, and drafts replies.", stops: "Nothing is sent until you approve it." },
-    { name: "Expense Manager", ...EXPENSE, does: "Logs receipts that arrive by email, builds the weekly expense summary, and chases people for missing categories.", stops: "Nothing is paid or reimbursed without you." },
-    { name: "Sales Outbound", ...SALES, does: "Researches accounts overnight, picks the contacts worth reaching, drafts emails in your voice, and leaves you a list to review.", stops: "Nothing is sent until you approve each one." },
+    { name: "Inbox Manager", ...INBOX, does: "Sorts your inbox, flags what is urgent or where someone is waiting on you, and drafts replies.", stops: "It sends nothing until you approve it." },
+    { name: "Expense Manager", ...EXPENSE, does: "Logs receipts that arrive by email, builds the weekly expense summary, and chases people for missing categories.", stops: "It pays or reimburses nothing without you." },
+    { name: "Sales Outbound", ...SALES, does: "Researches accounts overnight, picks the contacts worth reaching, drafts emails in your voice, and leaves you a list to review.", stops: "It sends nothing until you approve each one." },
   ];
   return (
     <div className="job-cards">
@@ -383,7 +369,7 @@ export function JobCards() {
   );
 }
 
-/* Slide 12: you → Chief → specialist. */
+/* Slide 6: you, Chief, specialist. */
 export function HireDiagram() {
   return (
     <div className="hire-diagram">
@@ -408,19 +394,19 @@ export function HireDiagram() {
       <article className="description-card">
         <header>
           <span>Description field</span>
-          <small>A paragraph in a text field. That is the whole setup.</small>
+          <small>That is enough to create the Bot. Plugins and the approval rule come next.</small>
         </header>
         <pre>{`You are my Chief of Staff. You watch my calendar, Slack and inbox.
 
 Stay quiet if nothing changed. When something needs me, say what is done, what is blocked, and the one decision only I can make.
 
-Never, without asking: send, publish, spend, or delete.`}</pre>
+Never, without asking: send, publish, buy, delete, or sign.`}</pre>
       </article>
     </div>
   );
 }
 
-/* Slides 13 and 14: five-part request. */
+/* Slides 10 and 11: five-part request. */
 const FIVE_PARTS: Array<[string, string]> = [
   ["Outcome", "What should be finished when the Bot stops?"],
   ["Sources", "Which apps, websites, files or conversations matter?"],
@@ -554,13 +540,13 @@ export function FirstDeliverable() {
   );
 }
 
-/* Slide 15: the plugin marketplace. */
+/* Slide 7: the plugin marketplace. */
 type PluginRow = { name: string; blurb: string; added: boolean; color: string; letter: string };
 const FEATURED_PLUGINS: PluginRow[] = [
   { name: "Gmail", blurb: "Search, read, draft, and manage email.", added: true, color: "#ea4335", letter: "M" },
   { name: "Google Calendar", blurb: "Search events and schedule meetings.", added: true, color: "#4285f4", letter: "31" },
   { name: "Google Drive", blurb: "Search, read, create, and share files.", added: true, color: "#34a853", letter: "▲" },
-  { name: "Granola", blurb: "Your meeting notes, in the Bot's hands.", added: false, color: "#7bb661", letter: "G" },
+  { name: "Granola", blurb: "Read and search your meeting notes.", added: false, color: "#7bb661", letter: "G" },
   { name: "Slack", blurb: "Read channels, search history, post as you.", added: true, color: "#611f69", letter: "#" },
   { name: "X", blurb: "Read X, draft posts and replies.", added: false, color: "#f3f5f7", letter: "X" },
 ];
@@ -600,23 +586,23 @@ export function PluginMarket() {
       </div>
       <aside className="plugin-explain">
         <div>
-          <b>A plugin is a connection to an app.</b>
-          <p>Gmail, Slack, your calendar, your CRM. Once added, every Bot on your account can read from it and act in it.</p>
+          <b>A plugin is a connection to one app.</b>
+          <p>Gmail, Slack, your calendar, your CRM.</p>
         </div>
         <div>
-          <b>Add it once, then tell each Bot what to use.</b>
-          <p>Plugins belong to the account. Your Inbox Manager can be told to use Gmail and Slack, your Expense Manager only Gmail and Drive.</p>
+          <b>Add it once for the account.</b>
+          <p>Then tell each Bot which ones to use. Every Bot can still reach all of them.</p>
         </div>
         <div>
-          <b>Private plugins are yours.</b>
-          <p>Anything your team builds, or any MCP server you connect, shows up here next to the public ones.</p>
+          <b>Your own tools go here too.</b>
+          <p>Anything your team builds, or an MCP server, sits next to the public ones.</p>
         </div>
       </aside>
     </div>
   );
 }
 
-/* Slide 17: the approval card. */
+/* Slide 8: the approval card. */
 export function ApprovalStage() {
   return (
     <div className="approval-stage">
@@ -650,7 +636,7 @@ export function ApprovalStage() {
         <b>Set once, in Settings</b>
         <ul>
           <li>
-            <Pill tone="stop">Require approval</Pill> send · publish · buy · delete
+            <Pill tone="stop">Require approval</Pill> send · publish · buy · delete · sign
           </li>
           <li>
             <Pill tone="good">Always allow</Pill> read · search · draft · summarise
@@ -663,7 +649,7 @@ export function ApprovalStage() {
   );
 }
 
-/* Slide 18: sign-in happens on the Bot's computer. */
+/* Slide 9: sign-in happens on the Bot's computer. */
 export function TakeoverStage() {
   const levels: Array<[string, string, string]> = [
     ["Status", "A small icon in the title bar turns purple while the Bot's computer is busy.", "glance"],
@@ -711,7 +697,7 @@ export function TakeoverStage() {
   );
 }
 
-/* Slide 19: the roster gets noisy around Bot 4 or 5. */
+/* Slide 17: the roster gets noisy around Bot 4 or 5. */
 export function RosterGrowth() {
   const bots = [
     { n: 1, name: "Chief of Staff", state: "quiet and useful", tone: "good" as const, ...CHIEF },
@@ -739,9 +725,32 @@ export function RosterGrowth() {
           <li>Two Bots writing the same file</li>
           <li>Updates nobody asked for</li>
         </ul>
-        <p>People who set up five Bots on the first night spend the next two weeks deleting them.</p>
+        <p>Five Bots on the first night usually means a week of deleting duplicates.</p>
         <p className="rule">Add a Bot when there is a whole job for it. Not because one step of an existing job is annoying.</p>
       </aside>
     </div>
+  );
+}
+
+/* Slide 18: three things to do before leaving. */
+export function Checklist() {
+  const steps: Array<[string, string, typeof CHIEF]> = [
+    ["Create Chief of Staff.", "Write the description in your own words. Keep the line about asking first.", CHIEF],
+    ["Create one specialist.", "Inbox Manager, Expense Manager or Sales Outbound. Add the plugins it needs.", INBOX],
+    ["Run one task with all five parts.", "Then ask it to send one draft, and watch it stop.", EXPENSE],
+  ];
+  return (
+    <ol className="checklist">
+      {steps.map(([title, body, bot], i) => (
+        <li key={title}>
+          <span className="check-box">{i + 1}</span>
+          <GrokBotFace {...bot} />
+          <div>
+            <b>{title}</b>
+            <p>{body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
   );
 }

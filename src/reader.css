@@ -1,0 +1,672 @@
+/* Desktop chrome: labelled, clickable key hints. Hidden in reader mode. */
+.chrome {
+  font-size: 12px;
+}
+
+.keys {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.key-chip {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 3px 7px;
+  font: 400 12px/1 var(--mono);
+  color: var(--dim);
+  cursor: pointer;
+}
+
+.key-chip:hover {
+  color: var(--soft);
+  border-color: rgba(243, 245, 247, 0.28);
+}
+
+.key-chip:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 2px;
+}
+
+.dots button {
+  display: block;
+}
+
+.dots button[aria-current="true"] {
+  width: 10px;
+  height: 10px;
+}
+
+.dots button:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 3px;
+}
+
+@media (max-width: 899px) {
+  html,
+  body,
+  #root {
+    height: auto;
+    min-height: 100%;
+    overflow-x: clip;
+  }
+
+  .deck.reader {
+    height: auto;
+    display: block;
+    background: var(--bg);
+  }
+
+  .reader-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: rgba(8, 8, 8, 0.94);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(16px);
+  }
+
+  .reader-nav {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--paper);
+    font: 500 14px/1 var(--sans);
+    cursor: pointer;
+  }
+
+  .reader-nav:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .reader-nav:focus-visible {
+    outline: 2px solid var(--paper);
+    outline-offset: 2px;
+  }
+
+  .reader-meta {
+    display: grid;
+    justify-items: center;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .reader-meta strong {
+    font: 500 14px/1.2 var(--sans);
+    letter-spacing: -0.02em;
+  }
+
+  .reader-meta span {
+    color: var(--dim);
+    font: 400 12px/1 var(--mono);
+  }
+
+  .reader-stream {
+    display: block;
+    overflow-x: clip;
+  }
+
+  .reader-slide {
+    scroll-margin-top: 64px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .reader-slide .slide {
+    height: auto;
+    min-height: 0;
+    gap: 16px;
+    padding: 28px 16px 40px;
+    overflow: visible;
+  }
+
+  .reader-slide .slide > *:not(h1):not(h2):not(.plain-note) {
+    flex: 0 0 auto;
+    min-height: 0;
+  }
+
+  .reader-slide h1,
+  .reader-slide h2 {
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+    max-width: none;
+  }
+
+  .reader-slide h1 {
+    font-size: 32px;
+  }
+
+  .reader-slide .plain-note {
+    margin-top: 12px;
+    font-size: 16px;
+    line-height: 1.45;
+    max-width: none;
+  }
+
+  .reader-slide p,
+  .reader-slide li,
+  .reader-slide small,
+  .reader-slide span,
+  .reader-slide b {
+    overflow-wrap: break-word;
+  }
+
+  /* Title */
+  .slide-title {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: start;
+    padding-top: 56px;
+  }
+
+  .spacexai-lockup {
+    width: 132px;
+  }
+
+  .byline {
+    font-size: 16px;
+    margin-top: 12px;
+  }
+
+  .roster-preview {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    transform: none;
+  }
+
+  .roster-row {
+    padding: 14px 14px;
+  }
+
+  .roster-row b {
+    font-size: 18px;
+  }
+
+  .roster-row small {
+    font-size: 15px;
+  }
+
+  .roster-row time {
+    margin-left: 0;
+  }
+
+  .roster-stop {
+    margin-left: 0;
+  }
+
+  .roster-stop b {
+    font-size: 18px;
+  }
+
+  /* Stage grids: single column */
+  .takeaway-pair,
+  .job-cards,
+  .hire-diagram,
+  .plugin-stage,
+  .market-grid,
+  .approval-stage,
+  .takeover-stage,
+  .takeover-levels,
+  .five-filled,
+  .five-rows > div,
+  .deliverable-stage,
+  .computer-stage,
+  .account-funnel,
+  .office-stage,
+  .memory-stage,
+  .roster-growth,
+  .compare-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hire-chain,
+  .office-floor {
+    flex-direction: column;
+  }
+
+  .word-list li,
+  .word-list li:not(:has(code)),
+  .checklist li {
+    grid-template-columns: 1fr;
+  }
+
+  /* Takeaway */
+  .takeaway-pair {
+    gap: 14px;
+  }
+
+  .takeaway-pair article {
+    padding: 22px 18px 20px;
+    gap: 12px;
+  }
+
+  .takeaway-pair b {
+    font-size: 26px;
+    max-width: none;
+  }
+
+  .takeaway-pair p {
+    font-size: 16px;
+  }
+
+  .takeaway-bot {
+    position: static;
+    width: 56px;
+    height: 56px;
+    margin-top: 8px;
+  }
+
+  .gate-words i {
+    font-size: 12px;
+  }
+
+  /* Jobs */
+  .job-cards article {
+    padding: 22px 18px;
+    gap: 14px;
+  }
+
+  .job-cards header b {
+    font-size: 28px;
+  }
+
+  .job-cards p,
+  .job-cards footer {
+    font-size: 16px;
+  }
+
+  /* Words */
+  .word-list li {
+    gap: 10px;
+    padding: 16px 16px;
+    justify-items: start;
+  }
+
+  .word-list b {
+    font-size: 26px;
+  }
+
+  .word-list p {
+    font-size: 16px;
+  }
+
+  .word-list code {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* Hire */
+  .hire-diagram {
+    gap: 20px;
+  }
+
+  .hire-chain {
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hire-wire {
+    flex: 0 0 28px;
+    width: 2px;
+    min-width: 0;
+    height: 28px;
+    background: linear-gradient(180deg, var(--line), var(--blue));
+  }
+
+  .hire-node .grok-bot-face {
+    width: 72px;
+    height: 72px;
+  }
+
+  .description-card pre {
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  /* Plugins */
+  .plugin-stage {
+    gap: 16px;
+  }
+
+  .market {
+    padding: 16px;
+  }
+
+  .market-grid {
+    gap: 12px;
+  }
+
+  .market-grid article {
+    grid-template-columns: 46px 1fr auto;
+  }
+
+  .plugin-explain b {
+    font-size: 18px;
+  }
+
+  .plugin-explain p {
+    font-size: 16px;
+  }
+
+  /* Approval */
+  .approval-stage {
+    gap: 16px;
+  }
+
+  .email-card {
+    padding: 18px;
+  }
+
+  .email-card dl {
+    grid-template-columns: 56px 1fr;
+    font-size: 16px;
+  }
+
+  .email-card p,
+  .email-card footer button,
+  .approval-rules p,
+  .approval-rules li {
+    font-size: 16px;
+  }
+
+  .approval-rules p:last-child {
+    font-size: 22px;
+  }
+
+  .email-card footer {
+    flex-wrap: wrap;
+  }
+
+  /* Takeover */
+  .takeover-stage {
+    gap: 16px;
+  }
+
+  .takeover-levels article {
+    padding: 16px;
+  }
+
+  .takeover-levels b {
+    font-size: 20px;
+  }
+
+  .takeover-levels p {
+    font-size: 16px;
+  }
+
+  .takeover-screen {
+    aspect-ratio: 4 / 3;
+  }
+
+  .login-window {
+    inset: 6% 5% 30%;
+  }
+
+  .login-window > div {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .code-boxes {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .code-boxes i {
+    width: 28px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .takeover-banner {
+    width: calc(100% - 24px);
+    bottom: 3%;
+    padding: 6px 12px;
+  }
+
+  /* Five parts */
+  .five-tabs {
+    flex-wrap: wrap;
+  }
+
+  .five-tabs button {
+    font-size: 15px;
+    padding: 10px 14px 10px 10px;
+  }
+
+  .five-rows > div {
+    gap: 8px;
+    padding: 14px 16px;
+    align-items: start;
+  }
+
+  .five-rows p {
+    font-size: 16px;
+  }
+
+  /* Deliverable */
+  .deliverable-stage {
+    gap: 16px;
+  }
+
+  .chat-card {
+    padding: 18px;
+  }
+
+  .chat-card p.me,
+  .chat-card .reply {
+    max-width: 100%;
+    font-size: 16px;
+  }
+
+  .deliverable-rules article {
+    grid-template-columns: auto 1fr;
+    padding: 14px;
+  }
+
+  .deliverable-rules p {
+    font-size: 20px;
+  }
+
+  /* Computer */
+  .computer-stage {
+    gap: 16px;
+  }
+
+  .computer-stage__facts span,
+  .computer-stage__facts b {
+    font-size: 16px;
+  }
+
+  .computer-stage__facts b {
+    font-size: 20px;
+  }
+
+  /* Account */
+  .account-funnel {
+    gap: 14px;
+  }
+
+  .funnel-lines {
+    display: none;
+  }
+
+  .funnel-face {
+    width: 88px;
+    height: 88px;
+  }
+
+  .funnel-bot {
+    padding: 22px;
+  }
+
+  .funnel-bot b {
+    font-size: 24px;
+  }
+
+  .funnel-bot small,
+  .account-col i {
+    font-size: 16px;
+  }
+
+  /* Office */
+  .office-desks {
+    grid-template-columns: 1fr;
+  }
+
+  .office-desks article {
+    padding: 18px;
+  }
+
+  .office-desks b {
+    font-size: 22px;
+  }
+
+  .office-desks p,
+  .office-floor span {
+    font-size: 16px;
+  }
+
+  .office-floor {
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .office-floor b {
+    white-space: normal;
+    font-size: 18px;
+  }
+
+  /* Memory */
+  .memory-stage {
+    gap: 12px;
+  }
+
+  .memory-arrow {
+    transform: rotate(90deg);
+    font-size: 24px;
+  }
+
+  .memory-chat p,
+  .memory-file pre,
+  .memory-file header code,
+  .memory-chat footer {
+    font-size: 16px;
+  }
+
+  .memory-file pre {
+    overflow-wrap: anywhere;
+  }
+
+  /* Compare */
+  .compare-row {
+    gap: 12px;
+  }
+
+  .compare-row article {
+    padding: 18px;
+  }
+
+  .compare-row b {
+    font-size: 22px;
+  }
+
+  .compare-row p {
+    font-size: 16px;
+  }
+
+  /* Roster growth */
+  .roster-growth {
+    gap: 16px;
+  }
+
+  .roster-growth > ol > li {
+    grid-template-columns: 24px 40px 1fr;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .roster-growth > ol > li .pill {
+    grid-column: 3;
+    justify-self: start;
+    white-space: normal;
+    line-height: 1.3;
+  }
+
+  .growth-copy li {
+    grid-template-columns: 8px 1fr;
+  }
+
+  .roster-growth li b,
+  .growth-copy b,
+  .growth-copy li {
+    font-size: 16px;
+  }
+
+  .growth-copy p {
+    font-size: 16px;
+  }
+
+  .growth-copy .rule {
+    font-size: 22px;
+  }
+
+  /* Checklist */
+  .checklist li {
+    gap: 12px;
+    padding: 16px;
+    justify-items: start;
+  }
+
+  .checklist b {
+    font-size: 22px;
+  }
+
+  .checklist p {
+    font-size: 16px;
+  }
+
+  /* App mock: drop the 280px sidebar and let the chat fill the column */
+  .slide-app .app-demo-fit {
+    flex: 0 0 auto;
+    container-type: normal;
+    width: 100%;
+    height: 540px;
+    overflow: hidden;
+    display: block;
+  }
+
+  .slide-app .app-demo-fit .baby-grok-bot,
+  .slide-app .baby-grok-bot {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    transform: none;
+  }
+
+  .slide-app .baby-grok-bot-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 599px) {
+  .slide-app .baby-grok-bot-sidebar {
+    display: none;
+  }
+
+  .slide-app .baby-grok-bot-detail-panel {
+    width: min(264px, 100%);
+  }
+}
