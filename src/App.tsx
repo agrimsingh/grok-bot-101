@@ -1,8 +1,96 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent } from "react";
 import { NOTES } from "./notes";
-import { SLIDES } from "./slides";
+import { PART_TWO, SLIDES } from "./slides";
 
 const LAST = SLIDES.length - 1;
+const PART_ONE_COUNT = PART_TWO;
+const PART_TWO_COUNT = SLIDES.length - PART_TWO;
+const HAS_PART_TWO = PART_TWO < SLIDES.length;
+const PART_ONE_TITLE = "Grok Bot 101";
+const PART_TWO_TITLE = "How far can you push Grok Bot?";
+
+function partName(index: number): "101" | "Push" {
+  return index >= PART_TWO ? "Push" : "101";
+}
+
+function partTitle(index: number): string {
+  return index >= PART_TWO ? PART_TWO_TITLE : PART_ONE_TITLE;
+}
+
+function slideFromTrackClick(startIndex: number, count: number, clientX: number, rect: DOMRect): number {
+  const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  const offset = Math.min(count - 1, Math.max(0, Math.round(ratio * (count - 1))));
+  return startIndex + offset;
+}
+
+type ProgressSegmentProps = {
+  label: string;
+  startIndex: number;
+  count: number;
+  currentIndex: number;
+  onGo: (index: number) => void;
+};
+
+function ProgressSegment({ label, startIndex, count, currentIndex, onGo }: ProgressSegmentProps) {
+  const endIndex = startIndex + count - 1;
+  const inSegment = currentIndex >= startIndex && currentIndex <= endIndex;
+  const fillRatio = inSegment
+    ? (currentIndex - startIndex + 1) / count
+    : currentIndex > endIndex
+      ? 1
+      : 0;
+  const markerRatio = inSegment ? (currentIndex - startIndex + 0.5) / count : currentIndex > endIndex ? 1 : 0;
+  const ariaNow = inSegment ? currentIndex - startIndex + 1 : currentIndex > endIndex ? count : 1;
+
+  const jumpFromClick = (event: MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    onGo(slideFromTrackClick(startIndex, count, event.clientX, rect));
+  };
+
+  const onKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+      event.preventDefault();
+      onGo(inSegment ? Math.min(endIndex, currentIndex + 1) : startIndex);
+      return;
+    }
+    if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+      event.preventDefault();
+      onGo(inSegment ? Math.max(startIndex, currentIndex - 1) : endIndex);
+      return;
+    }
+    if (event.key === "Home") {
+      event.preventDefault();
+      onGo(startIndex);
+      return;
+    }
+    if (event.key === "End") {
+      event.preventDefault();
+      onGo(endIndex);
+    }
+  };
+
+  return (
+    <div className={`progress-segment${inSegment ? " is-active" : ""}`} style={{ flexGrow: count }}>
+      <span className="progress-segment__label">{label}</span>
+      <div
+        className="progress-segment__track"
+        role="slider"
+        tabIndex={0}
+        aria-label={`${label} section`}
+        aria-valuemin={1}
+        aria-valuemax={count}
+        aria-valuenow={ariaNow}
+        onClick={jumpFromClick}
+        onKeyDown={onKeyDown}
+      >
+        <div className="progress-segment__fill" style={{ width: `${fillRatio * 100}%` }} />
+        {inSegment ? (
+          <div className="progress-segment__marker" style={{ left: `${markerRatio * 100}%` }} />
+        ) : null}
+      </div>
+    </div>
+  );
+}
 const STAGE_W = 1440;
 const STAGE_H = 810;
 const READER_QUERY = "(max-width: 899px)";
@@ -170,6 +258,16 @@ export function App() {
         go(LAST);
         return;
       }
+      if (key === "1") {
+        event.preventDefault();
+        go(0);
+        return;
+      }
+      if (key === "2" && HAS_PART_TWO) {
+        event.preventDefault();
+        go(PART_TWO);
+        return;
+      }
       if (key === "n" || key === "N") {
         event.preventDefault();
         setNotes((open) => !open);
@@ -200,7 +298,7 @@ export function App() {
             Previous
           </button>
           <div className="reader-meta">
-            <strong>Grok Bot 101</strong>
+            <strong>{partTitle(index)}</strong>
             <span>
               {index + 1} / {SLIDES.length}
             </span>
@@ -210,11 +308,22 @@ export function App() {
           </button>
         </header>
         <div className="reader-stream">
-          {SLIDES.map((Slide, i) => (
-            <section key={i} id={`slide-${i + 1}`} className="reader-slide">
-              <Slide />
-            </section>
-          ))}
+          {SLIDES.flatMap((Slide, i) => {
+            const items = [];
+            if (HAS_PART_TWO && i === PART_TWO) {
+              items.push(
+                <div key="part-two-divider" className="reader-part-divider">
+                  Part two
+                </div>,
+              );
+            }
+            items.push(
+              <section key={i} id={`slide-${i + 1}`} className="reader-slide">
+                <Slide />
+              </section>,
+            );
+            return items;
+          })}
         </div>
         {notesPanel}
       </div>
@@ -260,22 +369,29 @@ export function App() {
           <button type="button" className="key-chip" onClick={toggleFullscreen}>
             F Fullscreen
           </button>
+          <button type="button" className="key-chip" onClick={() => go(0)}>
+            1 101
+          </button>
+          {HAS_PART_TWO ? (
+            <button type="button" className="key-chip" onClick={() => go(PART_TWO)}>
+              2 Push
+            </button>
+          ) : null}
         </span>
-        <ol className="dots">
-          {SLIDES.map((_, i) => (
-            <li key={i}>
-              <button
-                type="button"
-                tabIndex={i === index ? 0 : -1}
-                aria-label={`Slide ${i + 1}`}
-                aria-current={i === index}
-                onClick={() => go(i)}
-              />
-            </li>
-          ))}
-        </ol>
+        <div className="progress-bar" aria-label="Deck progress">
+          <ProgressSegment label="101" startIndex={0} count={PART_ONE_COUNT} currentIndex={index} onGo={go} />
+          {HAS_PART_TWO ? (
+            <ProgressSegment
+              label="Push"
+              startIndex={PART_TWO}
+              count={PART_TWO_COUNT}
+              currentIndex={index}
+              onGo={go}
+            />
+          ) : null}
+        </div>
         <span className="count">
-          {index + 1} / {SLIDES.length}
+          {partName(index)} · {index + 1} / {SLIDES.length}
         </span>
       </footer>
       {notesPanel}

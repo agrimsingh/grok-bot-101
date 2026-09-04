@@ -28,18 +28,80 @@
   outline-offset: 2px;
 }
 
-.dots button {
-  display: block;
+.progress-bar {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: min(420px, 42vw);
+  margin: 0 16px;
 }
 
-.dots button[aria-current="true"] {
-  width: 10px;
-  height: 10px;
+.progress-segment {
+  flex: 1 1 0;
+  min-width: 48px;
+  display: grid;
+  gap: 5px;
 }
 
-.dots button:focus-visible {
+.progress-segment__label {
+  font: 400 10px/1 var(--mono);
+  color: var(--dim);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.progress-segment__track {
+  position: relative;
+  height: 7px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(243, 245, 247, 0.04);
+  cursor: pointer;
+}
+
+.progress-segment__track:focus-visible {
   outline: 2px solid var(--paper);
   outline-offset: 3px;
+}
+
+.progress-segment__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+  background: rgba(243, 245, 247, 0.22);
+  pointer-events: none;
+}
+
+.progress-segment.is-active .progress-segment__fill {
+  background: rgba(255, 137, 45, 0.35);
+}
+
+.progress-segment__marker {
+  position: absolute;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  pointer-events: none;
+  box-shadow: 0 0 0 1px rgba(8, 8, 8, 0.8);
+}
+
+.progress-segment.is-active .progress-segment__marker {
+  background: #ff892d;
+  border-color: rgba(255, 137, 45, 0.6);
+}
+
+.count {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 @media (max-width: 899px) {
@@ -107,6 +169,19 @@
   .reader-meta span {
     color: var(--dim);
     font: 400 12px/1 var(--mono);
+  }
+
+  .reader-part-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(243, 245, 247, 0.03);
+    color: var(--dim);
+    font: 500 11px/1 var(--mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 
   .reader-stream {
@@ -658,6 +733,252 @@
 
   .slide-app .baby-grok-bot-shell {
     grid-template-columns: 1fr;
+  }
+
+  /* Part two: push slides */
+  .slide-title-with-receipts,
+  .slide-close-with-receipts,
+  .browser-work-stage,
+  .tool-bench,
+  .whatsapp-stage,
+  .blocked-stage,
+  .mac-control-stage,
+  .group-room-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .opening-receipts {
+    transform: none;
+    gap: 12px;
+  }
+
+  .opening-whatsapp,
+  .opening-cursor {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .opening-receipts b {
+    font-size: 18px;
+  }
+
+  .opening-receipts small {
+    font-size: 14px;
+  }
+
+  .large-browser-frame {
+    aspect-ratio: 4 / 3;
+    min-height: 280px;
+  }
+
+  .linkedin-page {
+    grid-template-columns: 1fr;
+    padding: 18px;
+    gap: 16px;
+  }
+
+  .linkedin-page aside b {
+    font-size: 18px;
+  }
+
+  .linkedin-page aside small,
+  .draft-box p,
+  .draft-box span {
+    font-size: 16px;
+  }
+
+  .browser-outcomes b {
+    font-size: 18px;
+  }
+
+  .browser-outcomes small {
+    font-size: 16px;
+  }
+
+  .tool-bench article {
+    padding: 22px 18px;
+    min-height: 160px;
+  }
+
+  .tool-bench code {
+    font-size: 18px;
+  }
+
+  .tool-bench p {
+    font-size: 22px;
+    max-width: none;
+    padding-right: 0;
+  }
+
+  .tool-bench .grok-bot-face {
+    width: 64px;
+    height: 64px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .whatsapp-chat-card {
+    padding: 18px;
+  }
+
+  .whatsapp-chat-card header b {
+    font-size: 18px;
+  }
+
+  .wa-message {
+    width: 100%;
+    font-size: 16px;
+    padding: 16px 18px;
+  }
+
+  .approval-panel {
+    padding: 22px 18px;
+  }
+
+  .approval-panel h3 {
+    font-size: 26px;
+    margin-top: 14px;
+  }
+
+  .approval-panel p,
+  .approval-panel button {
+    font-size: 16px;
+  }
+
+  .approval-panel div {
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .blocked-browser b {
+    font-size: 28px;
+  }
+
+  .blocked-browser p,
+  .blocked-browser button {
+    font-size: 16px;
+  }
+
+  .blocked-message p {
+    font-size: 22px;
+  }
+
+  .mac-control-screen {
+    aspect-ratio: 3 / 4;
+    min-height: 280px;
+  }
+
+  .mac-shopee {
+    inset: 6% 6% 22%;
+  }
+
+  .mac-shopee > div {
+    grid-template-columns: 1fr;
+    padding: 18px;
+    gap: 12px;
+    text-align: center;
+    justify-items: center;
+    align-content: start;
+  }
+
+  .mac-shopee .product-thumb {
+    width: 72px;
+    height: 72px;
+  }
+
+  .mac-control-bot {
+    width: 56px;
+    height: 56px;
+    left: 4%;
+    bottom: 4%;
+  }
+
+  .mac-pointer {
+    display: none;
+  }
+
+  .mac-shopee p b {
+    font-size: 18px;
+  }
+
+  .mac-shopee p small,
+  .mac-control-steps span {
+    font-size: 16px;
+  }
+
+  .mac-control-steps span {
+    padding: 16px;
+  }
+
+  .group-room-stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .group-members-panel {
+    grid-column: 1;
+    grid-row: auto;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 18px;
+  }
+
+  .group-members-panel h3 {
+    margin-bottom: 14px;
+    font-size: 18px;
+  }
+
+  .group-members-panel div {
+    font-size: 16px;
+    height: auto;
+    padding: 8px 0;
+  }
+
+  .group-message.user,
+  .group-message p {
+    font-size: 16px;
+  }
+
+  .cursor-work-stage {
+    padding: 18px;
+    font-size: 16px;
+    gap: 12px;
+    justify-content: flex-start;
+  }
+
+  .cursor-work-stage .message {
+    max-width: 100%;
+    font-size: 16px;
+  }
+
+  .cursor-result-card {
+    width: 100%;
+  }
+
+  .cursor-result-title strong {
+    font-size: 18px;
+  }
+
+  .cursor-result-card > p,
+  .cursor-result-card button {
+    font-size: 16px;
+  }
+
+  .slide-close-with-receipts h2 {
+    font-size: 30px;
+    max-width: none;
+  }
+
+  .closing-line {
+    font-size: 18px;
+  }
+
+  .receipt-wall b {
+    font-size: 18px;
+  }
+
+  .receipt-wall small {
+    font-size: 16px;
   }
 }
 

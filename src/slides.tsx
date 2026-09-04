@@ -1,4 +1,15 @@
 import {
+  BlockedBrowserStage,
+  BrowserWorkStage,
+  CursorWorkStage,
+  OpeningReceipts,
+  ReceiptWall,
+  ToolBench,
+  WhatsAppStage,
+  GroupRoomStage,
+  MacControlStage,
+} from "./push";
+import {
   AccountFunnel,
   ApprovalStage,
   Checklist,
@@ -60,7 +71,6 @@ export function SlideJobs() {
     <section className="slide">
       <h2>Pick one job.</h2>
       <JobCards />
-      <p className="plain-note">The catalogue has fifty-six jobs. These three can be set up in twenty minutes, and each one already says where it stops.</p>
     </section>
   );
 }
@@ -202,9 +212,98 @@ export function SlideChecklist() {
 export function SlideCompare() {
   return (
     <section className="slide">
-      <h2>Appendix: how it compares to ChatGPT, OpenClaw and Hermes.</h2>
+      <h2>How it compares to ChatGPT, OpenClaw and Hermes.</h2>
       <CompareRow />
       <p className="plain-note">Written in September 2026. These products change often. Check the current docs before you quote this.</p>
+    </section>
+  );
+}
+
+export function SlidePushBreak() {
+  return (
+    <section className="slide slide-title slide-title-with-receipts part-break">
+      <div className="title-copy">
+        <h1>How far can you push Grok&nbsp;Bot?</h1>
+      </div>
+      <OpeningReceipts />
+    </section>
+  );
+}
+
+export function SlideBrowser() {
+  return (
+    <section className="slide">
+      <h2>It can open websites and click around.</h2>
+      <BrowserWorkStage />
+    </section>
+  );
+}
+
+export function SlideTools() {
+  return (
+    <section className="slide">
+      <h2>You can give it more tools.</h2>
+      <ToolBench />
+      <p className="plain-note">If a tool works from a computer, the Bot can usually learn to use it.</p>
+    </section>
+  );
+}
+
+export function SlideWhatsApp() {
+  return (
+    <section className="slide">
+      <h2>WhatsApp wasn't built in. I added it.</h2>
+      <WhatsAppStage />
+    </section>
+  );
+}
+
+export function SlideBlocked() {
+  return (
+    <section className="slide">
+      <h2>Sometimes a website blocks it.</h2>
+      <BlockedBrowserStage />
+    </section>
+  );
+}
+
+export function SlideMac() {
+  return (
+    <section className="slide">
+      <h2>So I let it use my Mac.</h2>
+      <MacControlStage />
+      <p className="plain-note">Same Chrome. Same login. I still tell it to ask before buying. Peekaboo does not block the click.</p>
+    </section>
+  );
+}
+
+export function SlideGroup() {
+  return (
+    <section className="slide">
+      <h2>Once you have a few Bots, put them in a room.</h2>
+      <GroupRoomStage />
+    </section>
+  );
+}
+
+export function SlideCursor() {
+  return (
+    <section className="slide">
+      <h2>It can send coding work to Cursor.</h2>
+      <CursorWorkStage />
+      <p className="plain-note">The terminal output stays in Cursor. Only the result comes back to the chat.</p>
+    </section>
+  );
+}
+
+export function SlideClose() {
+  return (
+    <section className="slide slide-close slide-close-with-receipts">
+      <div className="close-copy">
+        <h2>Give it something you already hate doing.</h2>
+        <p className="closing-line">x.ai/bot</p>
+      </div>
+      <ReceiptWall />
     </section>
   );
 }
@@ -229,4 +328,18 @@ export const SLIDES = [
   SlideBotFive,
   SlideChecklist,
   SlideCompare,
+  SlidePushBreak,
+  SlideBrowser,
+  SlideTools,
+  SlideWhatsApp,
+  SlideBlocked,
+  SlideMac,
+  SlideGroup,
+  SlideCursor,
+  SlideClose,
 ] as const;
+
+const PART_ONE_SLIDE_COUNT = SLIDES.indexOf(SlidePushBreak);
+
+/** Index of the first slide of part two ("How far can you push Grok Bot?"). Set when the push slides are appended. */
+export const PART_TWO = PART_ONE_SLIDE_COUNT;
