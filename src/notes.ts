@@ -1,0 +1,21 @@
+/** Presenter notes. N toggles. Running clock is for a 22-minute slot. */
+export const NOTES: readonly string[] = [
+  "0:00. Open with xAI's line: nothing to learn, it is like bringing on a coworker. Then: tonight is about what that coworker is allowed to do and where it has to stop. Do not play the launch film unless the room is cold.",
+  "0:45. Four facts, read them as a person, not a spec. The fourth one is the talk. Everything before the stop is the Bot's; the stop is yours.",
+  "1:30. Promise what they leave with. A Bot with a real job, and a rule about when it asks, in five verbs. Say the verbs out loud: send, publish, buy, delete, sign.",
+  "2:15. Five words, xAI's own list. Point at Prompt: used once, saved as a Skill, scheduled as a Routine. You will come back to that on the first-task slides.",
+  "3:00. Hands up for more than one Slack. Most people in the room have three or four inboxes and several workspaces. Most agents assume one Gmail and one Slack. A Bot's computer can be signed into all of them at once, which is why this is the first thing to show a sceptic.",
+  "3:45. Say it, do not argue it: close the laptop, the Bot keeps working. The computer is the Bot's, so your laptop has nothing to do with whether the job finishes. The live demo later proves it.",
+  "4:30. One computer, one desk per Bot, one set of logins. Handoffs are free because logins are shared. Say the consequence clearly: a second Bot adds no safety. xAI's design article says the same thing: tools and skills are account-wide; memory and routines belong to the Bot.",
+  "5:15. Chat scrolls away. A file the Bot rereads does not. Rules that last go in the description; facts that change go in a file. This is the whole memory model a beginner needs.",
+  "6:00. Ninety seconds, then sit down in the product. ChatGPT Projects: a chat with files. OpenClaw: you host and maintain it. Hermes: plain files on a machine you run. Grok Bot hides the files and runs the machine. Say that self-hosted tools and Grok Bot can coexist. Then stop comparing.",
+  "7:30. Project the three cards. Room votes by hands. Do not scroll the rest of the catalogue. If the room stalls, pick Inbox Manager; it is the one everybody has.",
+  "8:30. Live: create Chief of Staff. Type the description shown here into the description field, or read it out while you type a shorter version. Then create the specialist the room picked. No third Bot tonight. You talk to Chief; Chief routes.",
+  "10:30. Put the five words on the projector. Say what each one asks. Then go to the next slide and read the filled-in version for the job the room picked.",
+  "11:30. Click the tab for the job the room picked and read it. Type it into Chief's chat live, or paste it. Do not ad-lib a longer version; the Bot does what you describe.",
+  "13:30. While the Bot works, show what the first result should look like: a list and drafts, never a send. If the live result is slower than the slide, keep talking over this slide and come back.",
+  "15:00. Open Plugins, add one live (X, pstack as backup). Say it out loud: plugins are per account, then in a Bot's settings you pick which ones that Bot uses. One install is enough; do not scroll the whole list.",
+  "16:00. Force a send or a spend in the live chat: ask Inbox Manager to send one of its drafts. Show the card. Setup is not finished until the room has seen the Bot stop. Mention Require approval beats Always allow.",
+  "18:00. If the Bot hits a login during the demo, do the takeover slowly enough for the back row to see the banner. Type the code yourself. Hand control back. If no login comes up, say the three levels and move on.",
+  "19:30. Start with two Bots, not five. Duplicate work, two Bots on one file, updates nobody asked for. Two weeks of cleanup. Add a Bot when there is a whole job for it. Debbie's thumbnails stayed with the video editor. Leave this slide up for questions, then hand over: this was the 101; the next twenty minutes are how far the same app stretches.",
+];
