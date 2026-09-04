@@ -23,7 +23,7 @@
 .opening-cursor { margin-right: 25px; }
 .opening-whatsapp em { color: var(--blue); background: var(--blue-soft); }
 
-.browser-work-stage { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.35fr .65fr; gap: 18px; align-content: center; align-items: start; }
+.browser-work-stage { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.35fr .65fr; gap: 18px; align-content: stretch; align-items: stretch; }
 .large-browser-frame { display: flex; flex-direction: column; min-height: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: #17191d; box-shadow: 0 28px 80px #0007; }
 .large-browser-frame > header { height: 42px; flex: 0 0 auto; }
 .linkedin-page { position: relative; flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 34% 1fr; gap: 18px; padding: 18px 20px; background: #f5f3ef; color: #161616; }
@@ -41,14 +41,14 @@
 .draft-box p { margin: 14px 0 18px; color: #333; font-size: 16px; line-height: 1.4; }
 .draft-box span { color: #0a66c2; font-size: 14px; }
 .browser-pointer { position: absolute; right: 13%; bottom: 12%; color: #111; font-style: normal; font-size: 32px; transform: rotate(-25deg); animation: browser-teach 5s ease-in-out infinite; }
-.browser-outcomes { display: grid; align-content: center; align-items: start; gap: 14px; }
+.browser-outcomes { display: grid; align-content: stretch; gap: 14px; }
 .browser-outcomes article { padding: 18px 20px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
 .browser-outcomes .grok-bot-face { width: 52px; height: 52px; }
 .browser-outcomes span { display: grid; gap: 5px; }
 .browser-outcomes b { font-size: 18px; font-weight: 500; }
 .browser-outcomes small { color: var(--dim); font-size: 15px; line-height: 1.35; }
 
-.tool-bench { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; align-content: center; align-items: start; }
+.tool-bench { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; align-content: stretch; align-items: stretch; }
 .tool-bench article { position: relative; min-height: 0; padding: 18px 20px; display: flex; flex-direction: column; justify-content: center; border: 1px solid var(--line); border-radius: 22px; background: var(--panel); overflow: hidden; }
 .tool-bench article::after { content: ""; position: absolute; inset: auto -20% -55% 15%; height: 220px; background: radial-gradient(circle, color-mix(in srgb,var(--tool-color,#80adff) 16%,transparent), transparent 66%); }
 .tool-bench .grok-bot-face { position: absolute; right: 26px; bottom: 26px; width: 110px; height: 110px; }
@@ -56,7 +56,7 @@
 .tool-bench p { max-width: 13ch; margin-top: 20px; padding-right: 36px; font: 400 34px/1.16 var(--display); letter-spacing: -.03em; }
 .tool-bench .tool-plus { position: absolute; top: 26px; right: 26px; width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--dim); font-size: 26px; }
 
-.whatsapp-stage { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr .82fr; gap: 18px; align-content: center; align-items: start; }
+.whatsapp-stage { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr .82fr; gap: 18px; align-content: stretch; align-items: stretch; }
 .whatsapp-chat-card { min-height: 0; padding: 18px 20px; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 22px; background: #191c1c; box-shadow: 0 28px 80px #0008; }
 .whatsapp-chat-card header { display: flex; align-items: center; gap: 14px; }
 .whatsapp-chat-card .grok-bot-face { width: 58px; height: 58px; }
@@ -77,19 +77,19 @@
 .approval-panel button { padding: 14px 18px; border: 1px solid var(--line); border-radius: 12px; font-size: 16px; }
 .approval-panel button:last-child { color: #08101d; background: var(--blue); border-color: transparent; }
 
-.blocked-stage { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.25fr .75fr; gap: 18px; align-content: center; align-items: start; }
+.blocked-stage { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.25fr .75fr; gap: 18px; align-content: stretch; align-items: stretch; }
 .blocked-browser { min-height: 0; display: flex; flex-direction: column; overflow: hidden; border: 1px solid rgba(240,130,118,.34); border-radius: 20px; background: #17191d; }
 .blocked-browser > header { flex: 0 0 auto; }
 .blocked-browser > div { flex: 1 1 auto; min-height: 0; display: grid; place-items: center; align-content: center; gap: 16px; text-align: center; background: #f5f3ef; color: #171717; }
-.blocked-browser b { font-size: 42px; }
-.blocked-browser p { color: #666; font-size: 18px; }
-.blocked-browser button { padding: 12px 18px; border: 1px solid #aaa; border-radius: 8px; font-size: 16px; }
-.blocked-message { min-height: 0; padding: 18px 20px; display: grid; grid-template-columns: auto 1fr; align-content: center; gap: 16px 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+.blocked-browser b { font-size: 54px; }
+.blocked-browser p { color: #666; font-size: 22px; }
+.blocked-browser button { padding: 14px 22px; border: 1px solid #aaa; border-radius: 8px; font-size: 18px; }
+.blocked-message { min-height: 0; padding: 32px 30px; display: grid; grid-template-columns: auto 1fr; align-content: center; gap: 16px 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
 .blocked-message .grok-bot-face { width: 68px; height: 68px; }
-.blocked-message p { font: 400 23px/1.3 var(--display); letter-spacing: -.02em; }
+.blocked-message p { font: 400 28px/1.3 var(--display); letter-spacing: -.02em; }
 .blocked-message .blocked-status { grid-column: 2; justify-self: start; padding: 6px 11px; border-radius: 999px; color: var(--red); background: rgba(240,130,118,.12); font: 500 13px/1 var(--mono); }
 
-.mac-control-stage { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.35fr .65fr; gap: 18px; align-content: center; align-items: start; }
+.mac-control-stage { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.35fr .65fr; gap: 18px; align-content: stretch; align-items: stretch; }
 .mac-control-screen { position: relative; min-height: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 21px; }
 .mac-control-screen > img { width: 100%; height: 100%; object-fit: cover; }
 .mac-shopee { position: absolute; inset: 12% 8%; overflow: hidden; border-radius: 12px; background: #fff; box-shadow: 0 25px 60px #0008; color: #111; }
@@ -102,7 +102,7 @@
 .mac-shopee button { padding: 12px 16px; border-radius: 8px; color: white; background: #ee4d2d; font-size: 16px; }
 .mac-control-bot { position: absolute; left: 3%; bottom: 3%; width: 72px; height: 72px; filter: drop-shadow(0 12px 20px #0008); }
 .mac-pointer { position: absolute; right: 17%; bottom: 23%; color: #111; font-size: 30px; font-style: normal; transform: rotate(-24deg); animation: mac-click 4.8s ease-in-out infinite; }
-.mac-control-steps { display: grid; align-content: center; align-items: start; gap: 14px; }
+.mac-control-steps { display: grid; align-content: stretch; gap: 14px; }
 .mac-control-steps span { padding: 18px 20px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); font-size: 18px; }
 .mac-control-steps b { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; color: var(--blue); background: var(--blue-soft); font: 500 13px/1 var(--mono); }
 
@@ -170,7 +170,7 @@
 .slide-close-with-receipts { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 50px; }
 .slide-close-with-receipts .close-copy { align-self: center; }
 .slide-close-with-receipts h2 { font-size: clamp(52px, 5.4cqw, 78px); max-width: 9.5ch; }
-.receipt-wall { display: grid; align-content: center; align-items: start; gap: 14px; }
+.receipt-wall { display: grid; align-content: stretch; gap: 14px; }
 .receipt-wall article { min-height: 0; padding: 18px 20px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
 .receipt-wall .grok-bot-face { width: 52px; height: 52px; }
 .receipt-wall span { display: grid; gap: 4px; }
