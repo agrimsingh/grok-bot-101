@@ -725,7 +725,6 @@ export function RosterGrowth() {
           <li>Two Bots writing the same file</li>
           <li>Updates nobody asked for</li>
         </ul>
-        <p>Five Bots on the first night usually means a week of deleting duplicates.</p>
         <p className="rule">Add a Bot when there is a whole job for it. Not because one step of an existing job is annoying.</p>
       </aside>
     </div>

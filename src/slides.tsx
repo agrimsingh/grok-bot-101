@@ -71,7 +71,6 @@ export function SlideJobs() {
     <section className="slide">
       <h2>Pick one job.</h2>
       <JobCards />
-      <p className="plain-note">The catalogue has fifty-six jobs. These three can be set up in twenty minutes, and each one already says where it stops.</p>
     </section>
   );
 }
